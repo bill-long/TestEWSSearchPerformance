@@ -57,14 +57,14 @@ namespace TestEWSSearchPerformance
             Console.WriteLine("FindItems on the folder without sorting.");
             for (var x = 0; x < 5; x++)
             {
-                SearchByFindItems(inboxFolder, false);
+                SearchByFilter(inboxFolder, false);
             }
 
             Console.WriteLine();
             Console.WriteLine("FindItems on the folder with a sort applied to the view.");
             for (var x = 0; x < 5; x++)
             {
-                SearchByFindItems(inboxFolder, true);
+                SearchByFilter(inboxFolder, true);
             }
 
             Console.WriteLine();
@@ -84,7 +84,7 @@ namespace TestEWSSearchPerformance
             for (var x = 0; x < NumberOfSearchesToPerform; x++)
             {
                 var numberToSearchFor = rnd.Next(0, NumberOfMessagesToCreate);
-                int high = folder.TotalCount - 1;
+                int high = folder.FindItems(filter, view).TotalCount - 1;
                 var low = 0;
                 var found = false;
                 while (!found)
@@ -119,7 +119,7 @@ namespace TestEWSSearchPerformance
             Console.WriteLine("SearchBySeek finished after: " + sw.ElapsedMilliseconds + " milliseconds.");
         }
 
-        public static void SearchByFindItems(Folder folder, bool sort)
+        public static void SearchByFilter(Folder folder, bool sort)
         {
             var rnd = new Random();
             var view = new ItemView(1, 0);
@@ -134,7 +134,7 @@ namespace TestEWSSearchPerformance
             }
 
             sw.Stop();
-            Console.WriteLine("SearchByFindItems " + (sort ? "with sort" : "without sort") + " finished after: " + sw.ElapsedMilliseconds + " milliseconds.");
+            Console.WriteLine("SearchByFilter " + (sort ? "with sort" : "without sort") + " finished after: " + sw.ElapsedMilliseconds + " milliseconds.");
         }
 
         public static void SearchBySearchFolder(SearchFolder folder)
