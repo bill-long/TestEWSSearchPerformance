@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Exchange.WebServices.Data;
 
@@ -9,6 +8,7 @@ namespace TestEWSSearchPerformance
     {
         const int NumberOfMessagesToCreate = 10000;
         const int NumberOfSearchesToPerform = 50;
+        const int NumberOfIterations = 5;
         static readonly Guid MyNamedPropertyNamespaceGuid = new Guid("6755f378-6d50-4b26-84ae-95824b6b7a1d");
         static readonly ExtendedPropertyDefinition MyNamedProp = 
             new ExtendedPropertyDefinition(
@@ -41,28 +41,28 @@ namespace TestEWSSearchPerformance
 
             Console.WriteLine();
             Console.WriteLine("Seeking the folder directly.");
-            for (var x = 0; x < 5; x++)
+            for (var x = 0; x < NumberOfIterations; x++)
             {
                 SearchBySeek(inboxFolder);
             }
 
             Console.WriteLine();
             Console.WriteLine("Seeking the search folder.");
-            for (var x = 0; x < 5; x++)
+            for (var x = 0; x < NumberOfIterations; x++)
             {
                 SearchBySeek(searchFolder);
             }
 
             Console.WriteLine();
             Console.WriteLine("FindItems on the folder without sorting.");
-            for (var x = 0; x < 5; x++)
+            for (var x = 0; x < NumberOfIterations; x++)
             {
                 SearchByFilter(inboxFolder, false);
             }
 
             Console.WriteLine();
             Console.WriteLine("FindItems on the folder with a sort applied to the view.");
-            for (var x = 0; x < 5; x++)
+            for (var x = 0; x < NumberOfIterations; x++)
             {
                 SearchByFilter(inboxFolder, true);
             }
