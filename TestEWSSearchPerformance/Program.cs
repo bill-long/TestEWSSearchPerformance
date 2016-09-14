@@ -32,7 +32,7 @@ namespace TestEWSSearchPerformance
             var inboxFolderId = new FolderId(WellKnownFolderName.Inbox, mailbox);
             var inboxFolder = Folder.Bind(exchService, inboxFolderId);
 
-            if (inboxFolder.TotalCount < 10000)
+            if (inboxFolder.TotalCount < NumberOfMessagesToCreate)
             {
                 CreateLotsOfMessages(exchService, inboxFolderId);
             }
